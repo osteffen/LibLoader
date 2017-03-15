@@ -8,9 +8,9 @@ int main(int argc, char *argv[])
 
     LibLoader l("./liblib1.so");
 
-    auto f = l.getFunktion<int()>("hook");
+    auto f = l.getFunction<int()>("hook");
 
-    f();
+    cout << "return value = " << f() << endl;
 
     return 0;
 }

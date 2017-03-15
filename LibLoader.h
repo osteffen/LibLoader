@@ -10,25 +10,17 @@ protected:
 
 public:
     LibLoader(const std::string& libname);
+
+    LibLoader(LibLoader&) = delete;
+    LibLoader& operator=(LibLoader&) = delete;
+
+    LibLoader(LibLoader&&) = default;
+    LibLoader& operator=(LibLoader&&) = default;
+
     ~LibLoader();
 
-    template<typename symType>
-    bool GetSymbol(const std::string& name, symType& sym) {
-        auto s = getSymbol(name);
-        if(s) {
-            sym = (symType) s;
-            return true;
-        }
-        return false;
-    }
-
-    template<typename T>
-    T GS(const std::string& name) {
-        return (T)getSymbol(name);
-    }
-
-    template<typename T>
-    std::function<T> getFunktion(const std::string& name) {
+     template<typename T>
+    std::function<T> getFunction(const std::string& name) {
         return reinterpret_cast<T*>(getSymbol(name));
     }
 
