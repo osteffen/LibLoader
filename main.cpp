@@ -1,27 +1,23 @@
 #include <iostream>
 #include "libInterface.h"
-#include <dlfcn.h>
+#include "LibLoader.h"
 using namespace std;
 
 int main(int argc, char *argv[])
 {
 
-    auto handle = dlopen("./liblib1.so", RTLD_NOW);
-    if(!handle) {
-        cout << "DL ERROR: " << dlerror() << endl;
-    }
+    LibLoader l("./liblib1.so");
 
-    void* fct = dlsym(handle, "hook");
+//    int(*f)();
 
-    if(!fct) {
-        cout << "symbol not found" << endl;
-    } else {
-        auto f = (int (*)()) fct;
-        f();
-    }
+//    if(! l.GetSymbol<int(*)()>("hook",f))
+//        return 1;
 
-    cout << "Hello World!" << endl;
+//    f();
 
-    dlclose(handle);
+    auto f = l.GS<int(*)()>("hook");
+
+    f();
+
     return 0;
 }

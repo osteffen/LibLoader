@@ -21,6 +21,11 @@ public:
         return false;
     }
 
+    template<typename T>
+    T GS(const std::string& name) {
+        return (T)getSymbol(name);
+    }
+
     struct Exception : std::runtime_error {
         using std::runtime_error::runtime_error;
     };
