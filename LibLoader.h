@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <stdexcept>
+#include <functional>
 
 class LibLoader {
 protected:
@@ -24,6 +25,11 @@ public:
     template<typename T>
     T GS(const std::string& name) {
         return (T)getSymbol(name);
+    }
+
+    template<typename T>
+    std::function<T> getFunktion(const std::string& name) {
+        return reinterpret_cast<T*>(getSymbol(name));
     }
 
     struct Exception : std::runtime_error {
